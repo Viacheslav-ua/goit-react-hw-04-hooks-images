@@ -80,6 +80,7 @@ const App: React.FC = () => {
   };
 
   const resetState = (str: string) => {
+    if (str === keyword) return;
     setKeyword(str);
     setPage(1);
     setPictures([]);
