@@ -1,51 +1,48 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { ImSearch } from "react-icons/im";
 import S from "./Searchbar.module.css";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 interface propsType {
   onSubmit: any;
 }
 
-export default class Searchbar extends Component<propsType> {
-  state = {
-    keyword: "",
-  }
+const Searchbar: React.FC<propsType> = ({ onSubmit }) => {
+  const [keyword, setKeyword] = useState<string>("");
 
-  handleInputChang = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [e.currentTarget.name]: e.currentTarget.value });
-  }
+  const handleInputChang = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.currentTarget.value);
+  };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (this.state.keyword.trim() === "") {
+    if (keyword.trim() === "") {
       toast.error("Enter a word");
-      return
+      return;
     }
-    this.props.onSubmit(this.state.keyword)
-  }
+    onSubmit(keyword);
+  };
 
-  render() {
-    return (
-      <header className={S.Searchbar}>
-        <form className={S.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={S.Button}>
-            <ImSearch />
-            <span className={S.ButtonLabel}>Search</span>
-          </button>
+  return (
+    <header className={S.Searchbar}>
+      <form className={S.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={S.Button}>
+          <ImSearch />
+          <span className={S.ButtonLabel}>Search</span>
+        </button>
 
-          <input
-            className={S.Input}
-            name="keyword"
-            value={this.state.keyword}
-            type="text"
-            onChange={this.handleInputChang}
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          className={S.Input}
+          name="keyword"
+          value={keyword}
+          type="text"
+          onChange={handleInputChang}
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
+};
+export default Searchbar;
