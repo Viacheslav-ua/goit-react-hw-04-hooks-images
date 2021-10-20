@@ -33,7 +33,7 @@ const App: React.FC = () => {
   }, [keyword, page]);
 
   useEffect(() => {
-    if (pictures.length !== 0) {
+    if (page !== 1) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
