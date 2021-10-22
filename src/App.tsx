@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import S from "./App.module.css";
@@ -86,9 +86,9 @@ const App: React.FC = () => {
     setPictures([]);
   };
 
-  const onLoadMore = () => {
+  const onLoadMore = useCallback(() => {
     setPage((state) => state + 1);
-  };
+  }, []);
 
   const toggleModal = (): void => {
     setShowModal((state) => !state);
